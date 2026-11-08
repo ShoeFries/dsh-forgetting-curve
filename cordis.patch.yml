@@ -1,0 +1,16 @@
+# 遗忘曲线 —— 宿主插件只有一段：它不管「记什么」，只管「该忘什么」。
+#
+# 0.4.0 起接上了这几样（都在宿主 index.js 里，这里不用加行）：
+#   · 只读快照路由：GET  /dsh-forgetting-curve/snapshot
+#                    POST /dsh-forgetting-curve/action
+#                    （op = scan / report / backup / setMode / items / apply / restore）
+#     —— 客户端面板（client/index.js）fetch 这两条，设置页那一页显示的是真数据。
+#   · 定时检查：走 ctx.effect 挂的 timer，判据复用 shouldRun()（85% 立刻跑 / 满 periodDays 跑），
+#     跑完只写报告 + snapshot.json，**不改 AGENTS.md / AGENTS.local.md**。
+#   · 只有 op=apply（你在面板上勾完点确认）才会动 AGENTS.md，而且必先整份备份。
+#
+# ⚠️ index.js 顶上那句 `export const inject = ['webServer']` 别删 ——
+#    少了它，DSH 重启时插件会比 webServer 服务先 apply，路由整条挂不上（面板报 404/405）。
+- insert:
+    - id: forgetting-curve
+      name: dsh-forgetting-curve

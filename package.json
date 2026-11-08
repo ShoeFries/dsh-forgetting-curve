@@ -1,0 +1,51 @@
+{
+  "name": "dsh-forgetting-curve",
+  "version": "0.4.0",
+  "description": "给 DeepSeek Harness 的记忆预算插件：按 [B1]..[B9] 组块算 AGENTS.md 的字节用量，把可折叠/可删除的条目逐条列出来，由人勾选确认后才动手（先整份备份，可恢复）。",
+  "displayName": "遗忘曲线",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "deepseek-harness",
+    "dsh-plugin",
+    "memory",
+    "forgetting-curve",
+    "chunking",
+    "context-budget",
+    "agents-md"
+  ],
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client/index.js",
+    "./blocks": "./lib/blocks.js",
+    "./classify": "./lib/classify.js",
+    "./measure": "./lib/measure.js",
+    "./backup": "./lib/backup.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "client",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "slots"
+      ]
+    }
+  }
+}
